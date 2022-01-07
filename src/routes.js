@@ -1,16 +1,18 @@
 import { Router } from 'express';
-import HelloController from './controllers/HelloController';
+
+import auth from "./middlewares/auth";
+
 
 import UsersController from './controllers/UsersController';
 import RepositoriesController from './controllers/RepositoriesController';
+import SessionsController from './controllers/SessionsController';
 
 const routes = new Router();
 
+routes.post("/sessions", SessionsController.create);
 
-routes.get("/hello", HelloController.index );  
+routes.use(auth);
 
-
-//RESTful routes
 routes.get("/users", UsersController.index );
 routes.get("/users/:id", UsersController.show );
 routes.post("/users", UsersController.create );
